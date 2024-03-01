@@ -1,8 +1,10 @@
+package model;
 
+import com.sysoev.taskmanager.servise.StatusTask;
 
-public class Subtask extends Task {
+public class Subtask extends model.Task {
 
-    private int epicId;
+    private final int epicId;
 
 
     public Subtask(String name, String description, StatusTask statusTask, int epicId){
@@ -15,7 +17,4 @@ public class Subtask extends Task {
         return epicId;
     }
 
-    public void setEpicId(int epicId) {
-        this.epicId = epicId;
-    }
 }

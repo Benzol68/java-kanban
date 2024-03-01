@@ -1,9 +1,13 @@
+package model;
+
+import com.sysoev.taskmanager.servise.StatusTask;
+
 import java.util.ArrayList;
 
 
 
-public class Epic extends Task {
-    private ArrayList<Integer> epicSubtasks;
+public class Epic extends model.Task {
+    private final ArrayList<Integer> epicSubtasks;
 
     public Epic(String name, String description) {
         super(name, description, StatusTask.NEW);
@@ -13,19 +17,16 @@ public class Epic extends Task {
 
 
     public ArrayList<Integer> getEpicSubtasks() {
-        return epicSubtasks;
+        return new ArrayList<>(epicSubtasks);
     }
 
-    public void setEpicSubtasks(ArrayList<Integer> epicSubtasks) {
-        this.epicSubtasks = epicSubtasks;
-    }
 
     public void addNewSubtaskInEpic(int id) {
         epicSubtasks.add(id);
     }
 
     public void deleteSubtask(int id) {
-        epicSubtasks.remove(id);
+        epicSubtasks.remove(Integer.valueOf(id));
     }
 
     public void deleteAllSubtasksOfEpic() {

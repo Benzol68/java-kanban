@@ -1,3 +1,7 @@
+package model;
+
+import com.sysoev.taskmanager.servise.StatusTask;
+
 import java.util.Objects;
 
 public class Task {
