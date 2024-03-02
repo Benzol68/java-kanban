@@ -43,7 +43,6 @@ public class Main {
             taskManager.addNewSubtask(subtask);
         }
 
-
         System.out.println(taskManager.getAllTasks());
         taskManager.deleteTaskById(0);
         System.out.println(taskManager.getAllTasks());
@@ -65,7 +64,7 @@ public class Main {
         taskManager.getSubtaskById(7).setStatusTask(StatusTask.DONE);
 
         System.out.println(taskManager.getSubtaskById(7).getStatusTask());
-        System.out.println(taskManager.getSubtaskById(5).getStatusTask());
+        System.out.println(taskManager.getSubtaskById(6).getStatusTask());
 
         taskManager.deleteSubtaskById(7);
         System.out.println(taskManager.getEpicById(5).getStatusTask());
