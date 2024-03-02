@@ -43,6 +43,7 @@ public class Main {
             taskManager.addNewSubtask(subtask);
         }
 
+
         System.out.println(taskManager.getAllTasks());
         taskManager.deleteTaskById(0);
         System.out.println(taskManager.getAllTasks());

@@ -13,7 +13,6 @@ public class Epic extends com.sysoev.taskmanager.model.Task {
     }
 
 
-
     public ArrayList<Integer> getEpicSubtasks() {
         return new ArrayList<>(epicSubtasks);
     }

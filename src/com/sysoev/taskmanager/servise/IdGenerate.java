@@ -7,3 +7,4 @@ public class IdGenerate {
         return idSequence++;
     }
 }
+
