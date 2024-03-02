@@ -1,6 +1,4 @@
-package model;
-
-import com.sysoev.taskmanager.servise.StatusTask;
+package com.sysoev.taskmanager.model;
 
 import java.util.Objects;
 

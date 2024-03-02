@@ -1,8 +1,6 @@
-package model;
+package com.sysoev.taskmanager.model;
 
-import com.sysoev.taskmanager.servise.StatusTask;
-
-public class Subtask extends model.Task {
+public class Subtask extends com.sysoev.taskmanager.model.Task {
 
     private final int epicId;
 

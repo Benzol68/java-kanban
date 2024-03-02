@@ -1,4 +1,4 @@
-package com.sysoev.taskmanager.servise;
+package com.sysoev.taskmanager.model;
 
 public enum StatusTask {
     NEW,

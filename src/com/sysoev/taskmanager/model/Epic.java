@@ -1,12 +1,10 @@
-package model;
-
-import com.sysoev.taskmanager.servise.StatusTask;
+package com.sysoev.taskmanager.model;
 
 import java.util.ArrayList;
 
 
 
-public class Epic extends model.Task {
+public class Epic extends com.sysoev.taskmanager.model.Task {
     private final ArrayList<Integer> epicSubtasks;
 
     public Epic(String name, String description) {

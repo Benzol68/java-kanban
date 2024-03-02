@@ -1,8 +1,9 @@
 package com.sysoev.taskmanager.servise;
 
-import model.Epic;
-import model.Subtask;
-import model.Task;
+import com.sysoev.taskmanager.model.Epic;
+import com.sysoev.taskmanager.model.StatusTask;
+import com.sysoev.taskmanager.model.Subtask;
+import com.sysoev.taskmanager.model.Task;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,34 +14,9 @@ public class TaskManager {
         private HashMap<Integer, Epic> epics = new HashMap<>();
         private HashMap<Integer, Subtask> subtasks = new HashMap<>();
 
-        IdGenerate idGenerate = new IdGenerate();
+        private IdGenerate idGenerate = new IdGenerate();
 
-
-        public HashMap<Integer, Task> getTasks() {
-            return tasks;
-        }
-
-        public void setTasks(HashMap<Integer, Task> tasks) {
-            this.tasks = tasks;
-        }
-
-        public HashMap<Integer, Epic> getEpics() {
-            return epics;
-        }
-
-        public void setEpics(HashMap<Integer, Epic> epics) {
-            this.epics = epics;
-        }
-
-        public HashMap<Integer, Subtask> getSubtasks() {
-            return subtasks;
-        }
-
-        public void setSubtasks(HashMap<Integer, Subtask> subtasks) {
-            this.subtasks = subtasks;
-        }
-
-        // добавление новых задач
+        //  добавление новых задач
         public int addNewTask(Task newTask) {
             newTask.setId(idGenerate.generateNewId());
             tasks.put(newTask.getId(), newTask);
@@ -100,17 +76,17 @@ public class TaskManager {
 
 
         // Получение списка всех подзадач определённого эпика.
-        public ArrayList<Integer> getSubtasksOfEpic(int epicId) {
-            return epics.get(epicId).getEpicSubtasks();
+        public ArrayList<Subtask> getSubtasksOfEpic(int epicId) {
+            ArrayList<Subtask> SubtasksOfEpic = new ArrayList<>();
+            for (Integer subtask : epics.get(epicId).getEpicSubtasks()) {
+                SubtasksOfEpic.add(subtasks.get(subtask));
+            }
+            return SubtasksOfEpic;
         }
 
         // получение списка всех задач
         public ArrayList<Task> getAllTasks() {
-            ArrayList<Task> allTasks = new ArrayList<>();
-            for (Task task : tasks.values()) {
-                allTasks.add(tasks.get(task.getId()));
-            }
-            return allTasks;
+            return new ArrayList<>(tasks.values());
         }
 
         // получение списка всех эпиков
@@ -120,11 +96,7 @@ public class TaskManager {
 
         // получение списка всех подзадач
         public ArrayList<Subtask> getAllSubtasks() {
-            ArrayList<Subtask> allSubtasks = new ArrayList<>();
-            for (Subtask subtask : subtasks.values()) {
-                allSubtasks.add(subtasks.get(subtask.getId()));
-            }
-            return allSubtasks;
+            return new ArrayList<>(subtasks.values());
         }
 
         // удаление по id
@@ -145,11 +117,11 @@ public class TaskManager {
         }
 
         public void deleteSubtaskById(int id) {
-            epics.get(subtasks.get(id).getEpicId()).deleteSubtask(id);
-            int epicId = subtasks.get(Integer.valueOf(id)).getEpicId();
-
-            subtasks.remove(Integer.valueOf(id));
-            changeEpicStatus(epics.get(epicId));
+            Subtask subtask = subtasks.remove(id);
+            int epicId = subtask.getEpicId();
+            Epic epic = epics.get(epicId);
+            epic.deleteSubtask(id);
+            changeEpicStatus(epic);
         }
 
 
