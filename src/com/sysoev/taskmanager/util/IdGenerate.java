@@ -1,4 +1,4 @@
-package com.sysoev.taskmanager.servise;
+package com.sysoev.taskmanager.util;
 
 public class IdGenerate {
     private int idSequence = 0;

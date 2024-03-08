@@ -1,22 +1,23 @@
 package com.sysoev.taskmanager;
 
-import com.sysoev.taskmanager.servise.TaskManager;
-import com.sysoev.taskmanager.model.StatusTask;
 import com.sysoev.taskmanager.model.Epic;
+import com.sysoev.taskmanager.model.StatusTask;
 import com.sysoev.taskmanager.model.Subtask;
 import com.sysoev.taskmanager.model.Task;
+import com.sysoev.taskmanager.util.Managers;
+import com.sysoev.taskmanager.service.TaskManager;
 
 public class Main {
     public static void main(String[] args) {
 
-        TaskManager taskManager = new TaskManager();
+        TaskManager taskManager = Managers.getDefaultTaskManager();
 
 
         for (int i = 0; i < 2; i++) {
             String name = "Задача " + (i + 1);
             String description = "Описание " + (i + 1);
 
-            Task task = new Task(name, description, StatusTask.NEW);
+            Task task = new Task(name, description);
             taskManager.addNewTask(task);
         }
         String name = "Эпик 1";

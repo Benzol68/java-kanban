@@ -5,14 +5,13 @@ import java.util.Objects;
 public class Task {
     private String name;
     private String description;
-    private StatusTask statusTask;
+    private StatusTask statusTask = StatusTask.NEW;
     private int id;
 
 
-    public Task(String name, String description, StatusTask statusTask) {
+    public Task(String name, String description) {
         this.name = name;
         this.description = description;
-        this.statusTask = statusTask;
     }
 
     public Task(String name, String description, StatusTask statusTask, int id){
@@ -59,13 +58,14 @@ public class Task {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (o.hashCode() != hashCode()) return false;
         Task task = (Task) o;
-        return id == task.id && Objects.equals(name, task.name) && Objects.equals(description, task.description) && statusTask == task.statusTask;
+        return id == task.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description);
+        return Objects.hash(id);
     }
 
 
