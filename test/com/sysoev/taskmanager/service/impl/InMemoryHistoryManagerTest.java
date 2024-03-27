@@ -87,8 +87,8 @@ class InMemoryHistoryManagerTest {
         taskManager.addNewTask(task);
 
     taskManager.getTaskById(0);
-    String description = taskManager.getHistory().get(0).getDescription();
+    String description = taskManager.getHistory().getFirst().getDescription();
     taskManager.getTaskById(0).setDescription("Новое описание");
-    assertNotEquals(description, taskManager.getHistory().get(0).getDescription(), "Задача не перезаписалась");
+    assertNotEquals(description, taskManager.getHistory().getFirst().getDescription(), "Задача не перезаписалась");
 }
 }
