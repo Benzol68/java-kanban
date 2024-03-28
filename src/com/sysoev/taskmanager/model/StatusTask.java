@@ -5,4 +5,3 @@ public enum StatusTask {
     IN_PROGRESS,
     DONE
 }
-

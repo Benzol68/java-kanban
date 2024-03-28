@@ -14,7 +14,7 @@ public class Task {
         this.description = description;
     }
 
-    public Task(String name, String description, StatusTask statusTask, int id){
+    public Task(String name, String description, StatusTask statusTask, int id) {
         this.name = name;
         this.description = description;
         this.statusTask = statusTask;
@@ -53,7 +53,6 @@ public class Task {
         this.id = id;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,7 +66,5 @@ public class Task {
     public int hashCode() {
         return Objects.hash(id);
     }
-
-
 }
 

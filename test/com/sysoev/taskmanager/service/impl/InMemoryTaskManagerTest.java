@@ -9,7 +9,6 @@ import com.sysoev.taskmanager.util.Managers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,11 +38,12 @@ class InMemoryTaskManagerTest {
         assertEquals(task, tasks.get(0), "Задачи не совпадают.");
     }
 
+
     @Test
     void addNewSubtask__ShouldSaveSubtaskAndGetSubtaskById() {
         Epic epic = new Epic("Эпик 1", "Описание эпика 1");
         taskManager.addNewEpic(epic);
-        Subtask subtask = new Subtask("Задача 1", "Описание 1", StatusTask.IN_PROGRESS, epic.getId());
+        Subtask subtask = new Subtask("Задача 1", "Описание 1", epic.getId());
         final int subtaskId = taskManager.addNewSubtask(subtask);
         final Subtask savedSubtask = taskManager.getSubtaskById(subtaskId);
 
@@ -81,11 +81,11 @@ class InMemoryTaskManagerTest {
         final List<Epic> epics = taskManager.getAllEpics();
         int countSubtask = 0;
         for (int i = 0; i < 4; i++) {
-            Subtask subtask = new Subtask("Задача 1", "Описание 1", StatusTask.IN_PROGRESS, epic.getId());
+            Subtask subtask = new Subtask("Задача 1", "Описание 1", epic.getId());
             taskManager.addNewSubtask(subtask);
             countSubtask++;
         }
-        final ArrayList<Integer> subtasksId = savedEpic.getEpicSubtasks();
+        final List<Integer> subtasksId = savedEpic.getEpicSubtasks();
 
         assertEquals(1, epics.size(), "Неверное количество задач.");
         assertEquals(countSubtask, subtasksId.size(), "Неверное количество задач.");

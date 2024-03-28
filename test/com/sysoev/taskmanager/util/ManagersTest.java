@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class ManagersTest {
 
-
     @Test
     void getDefaultTaskManager() {
         TaskManager taskManager = Managers.getDefaultTaskManager();

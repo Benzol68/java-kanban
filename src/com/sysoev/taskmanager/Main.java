@@ -12,7 +12,6 @@ public class Main {
 
         TaskManager taskManager = Managers.getDefaultTaskManager();
 
-
         for (int i = 0; i < 2; i++) {
             String name = "Задача " + (i + 1);
             String description = "Описание " + (i + 1);
@@ -28,7 +27,7 @@ public class Main {
         for (int i = 0; i < 2; i++) {
             name = "Подзадача " + (i + 1);
             description = "Описание подзадачи " + (i + 1);
-            Subtask subtask = new Subtask(name, description, StatusTask.NEW, epic.getId());
+            Subtask subtask = new Subtask(name, description, epic.getId());
             taskManager.addNewSubtask(subtask);
         }
 
@@ -40,7 +39,7 @@ public class Main {
         for (int i = 0; i < 3; i++) {
             name = "Подзадача " + (i + 1);
             description = "Описание подзадачи " + (i + 1);
-            Subtask subtask = new Subtask(name, description, StatusTask.NEW, epic1.getId());
+            Subtask subtask = new Subtask(name, description, epic1.getId());
             taskManager.addNewSubtask(subtask);
         }
 

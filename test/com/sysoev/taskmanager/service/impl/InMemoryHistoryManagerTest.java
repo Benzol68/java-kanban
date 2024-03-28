@@ -1,30 +1,33 @@
 package com.sysoev.taskmanager.service.impl;
 
+import com.sysoev.taskmanager.model.Epic;
+import com.sysoev.taskmanager.model.Subtask;
 import com.sysoev.taskmanager.model.Task;
-import com.sysoev.taskmanager.service.HistoryManager;
+import com.sysoev.taskmanager.service.TaskManager;
 import com.sysoev.taskmanager.util.Managers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryHistoryManagerTest {
-    private HistoryManager historyManager;
+
+    private TaskManager taskManager;
 
     @BeforeEach
     void init() {
-        historyManager = Managers.getDefaultHistoryManager();
+        taskManager = Managers.getDefaultTaskManager();
     }
 
     @Test
     void add_ShouldSavedPreviousVersionTaskAndItsData() {
         Task task = new Task("Задача 1", "Описание 1");
-        historyManager.add(task);
-        final List<Task> history = historyManager.getHistory();
-        final Task savedTask = history.get(0);
+        taskManager.addNewTask(task);
+        taskManager.getTaskById(task.getId());
+        final List<Task> history = taskManager.getHistory();
+        final Task savedTask = history.getFirst();
 
         assertNotNull(savedTask, "Задача не найдена.");
         assertEquals(task, savedTask, "Задачи не совпадают.");
@@ -33,5 +36,62 @@ class InMemoryHistoryManagerTest {
         assertEquals(task.getName(), savedTask.getName(), "Задачи не совпадают.");
         assertEquals(task.getDescription(), savedTask.getDescription(), "Задачи не совпадают.");
         assertEquals(task.getStatusTask(), savedTask.getStatusTask(), "Задачи не совпадают.");
+    }
+
+    @Test
+    void remove_ShouldDeleteTaskInManagerAndDeleteInHistory() {
+        for (int i = 0; i < 13; i++) {
+            Task task = new Task("Задача 1", "Описание 1");
+            taskManager.addNewTask(task);
+            taskManager.getTaskById(task.getId());
+        }
+        for (Task task : taskManager.getAllTasks()) {
+            int count = taskManager.getHistory().size();
+            taskManager.deleteTaskById(task.getId());
+
+            assertNotEquals(count, taskManager.getHistory().size(), "Задача не удалена из истории");
+        }
+    }
+
+    @Test
+    void remove_ShouldDeleteEpicInManagerAndDeleteInHistoryAllSubtasksOfEpic() {
+        Epic epic = new Epic("Эпик 1", "Описание эпика 1");
+        taskManager.addNewEpic(epic);
+        for (int i = 0; i < 13; i++) {
+            Subtask subtask = new Subtask("Задача 1", "Описание 1", epic.getId());
+            taskManager.addNewSubtask(subtask);
+        }
+        taskManager.getEpicById(epic.getId());
+        for (Subtask subtask : taskManager.getAllSubtasks()) {
+            taskManager.getSubtaskById(subtask.getId());
+        }
+        taskManager.deleteAllEpics();
+        assertEquals(0, taskManager.getHistory().size(), "Подзадачи не удалены");
+    }
+
+    @Test
+    void add_ShouldReDisplayingTasksChangesOrderOfHistory() {
+        for (int i = 0; i < 10; i++) {
+            Task task = new Task(("Задача " + i), ("Описание " + i));
+            taskManager.addNewTask(task);
+            taskManager.getTaskById(task.getId());
+        }
+        int size = taskManager.getHistory().size();
+        taskManager.getTaskById(5);
+        assertEquals(size, taskManager.getHistory().size(), "Количество задач не изменилось");
+        assertEquals(taskManager.getTaskById(5), taskManager.getHistory().get(size - 1), "Порядок задач не изменился");
+
+    }
+
+    @Test
+    void add_ShouldTaskWithSameIsOverwrittenInHistory() {
+
+        Task task = new Task(("Задача 1"), ("Описание 1"));
+        taskManager.addNewTask(task);
+
+        taskManager.getTaskById(0);
+        String description = taskManager.getHistory().getFirst().getDescription();
+        taskManager.getTaskById(0).setDescription("Новое описание");
+        assertNotEquals(description, taskManager.getHistory().getFirst().getDescription(), "Задача не перезаписалась");
     }
 }

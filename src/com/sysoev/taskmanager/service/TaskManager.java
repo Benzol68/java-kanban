@@ -4,7 +4,7 @@ import com.sysoev.taskmanager.model.Epic;
 import com.sysoev.taskmanager.model.Subtask;
 import com.sysoev.taskmanager.model.Task;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface TaskManager {
     //  добавление новых задач
@@ -29,15 +29,15 @@ public interface TaskManager {
     Subtask getSubtaskById(int id);
 
     // Получение списка всех подзадач определённого эпика.
-    ArrayList<Subtask> getSubtasksOfEpic(int epicId);
+    List<Subtask> getSubtasksOfEpic(int epicId);
 
-    ArrayList<Task> getAllTasks();
+    List<Task> getAllTasks();
 
     // получение списка всех эпиков
-    ArrayList<Epic> getAllEpics();
+    List<Epic> getAllEpics();
 
     // получение списка всех подзадач
-    ArrayList<Subtask> getAllSubtasks();
+    List<Subtask> getAllSubtasks();
 
     void deleteTaskById(int id);
 
@@ -50,4 +50,6 @@ public interface TaskManager {
     void updateSubtask(Subtask updateSubtask);
 
     void updateEpic(Epic updateEpic);
+
+    List<Task> getHistory();
 }

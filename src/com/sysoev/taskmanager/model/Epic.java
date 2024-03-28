@@ -1,11 +1,11 @@
 package com.sysoev.taskmanager.model;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 
 public class Epic extends com.sysoev.taskmanager.model.Task {
-    private final ArrayList<Integer> epicSubtasks;
+    private final List<Integer> epicSubtasks;
 
     public Epic(String name, String description) {
         super(name, description);
@@ -17,7 +17,7 @@ public class Epic extends com.sysoev.taskmanager.model.Task {
         this.epicSubtasks = new ArrayList<>();
     }
 
-    public ArrayList<Integer> getEpicSubtasks() {
+    public List<Integer> getEpicSubtasks() {
         return new ArrayList<>(epicSubtasks);
     }
 
@@ -33,6 +33,4 @@ public class Epic extends com.sysoev.taskmanager.model.Task {
     public void deleteAllSubtasksOfEpic() {
         epicSubtasks.clear();
     }
-
-
 }
