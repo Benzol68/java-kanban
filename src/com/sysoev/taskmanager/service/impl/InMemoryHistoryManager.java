@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    //    public static final int MAX_SIZE = 10;
     private Map<Integer, Node<Task>> history = new HashMap<>();
     private NewLinkedList<Task> historyList = new NewLinkedList<>();
 
@@ -46,7 +45,7 @@ public class InMemoryHistoryManager implements HistoryManager {
             if (tail == null) {
                 head = newNode;
             } else {
-                tail.next = newNode;
+                tail.setNext(newNode);
             }
             tail = newNode;
             return newNode;
@@ -56,8 +55,8 @@ public class InMemoryHistoryManager implements HistoryManager {
             ArrayList<T> list = new ArrayList<>();
             Node<T> current = head;
             while (current != null) {
-                list.add(current.data);
-                current = current.next;
+                list.add(current.getData());
+                current = current.getNext();
             }
             return list;
         }
@@ -66,19 +65,19 @@ public class InMemoryHistoryManager implements HistoryManager {
             if (node == null) {
                 return;
             }
-            final Node<T> prev = node.prev;
-            final Node<T> next = node.next;
+            final Node<T> prev = node.getPrev();
+            final Node<T> next = node.getNext();
             if (prev == null && next == null) {
                 head = null;
                 tail = null;
             } else if (prev != null && next != null) {
-                prev.next = next;
-                next.prev = prev;
+                prev.setNext(next);
+                next.setPrev(prev);
             } else if (next == null) {
-                prev.next = null;
+                prev.setNext(null);
                 tail = prev;
             } else {
-                next.prev = null;
+                next.setPrev(null);
                 head = next;
             }
         }
